@@ -1,11 +1,8 @@
-
 interface IDefaultStore {
-  userID: Number;
+  currencyPairs: string[];
 }
 const defaultStore: IDefaultStore = {
-    userID: 1
-  }
+  currencyPairs: ["EURUSD", "USDCHF", "USDJPY"]
+};
 
-  export {
-    defaultStore
-  }
+export { defaultStore };

@@ -1,13 +1,8 @@
-import { all } from 'redux-saga/effects'
 import { App } from './app'
 import { defaultStore } from './state'
-import { watchPollJokesSaga, jokeReducer } from './FXTicker';
-
-export default function* rootSaga() {
-  yield all([watchPollJokesSaga()])
-}
+import { fxTickerReducer } from './fxTicker';
 
 const reducers = {
-  jokes: jokeReducer,
+  currencyExchanges: fxTickerReducer,
 }
-export { App, reducers, defaultStore, rootSaga }
+export { App, reducers, defaultStore }
