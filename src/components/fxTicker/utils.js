@@ -42,17 +42,13 @@ export const updateCurrencyPrice = (
   const previousBuyPrice = _.get(currency, 'buy.value')
   const previousSellPrice = _.get(currency, 'sell.value')
 
-  const currentBuyPrice =
-    !_.isNil(priceData['Realtime Currency Exchange Rate']) &&
-    !_.isNil(priceData['Realtime Currency Exchange Rate']['8. Bid Price'])
-      ? priceData['Realtime Currency Exchange Rate']['8. Bid Price']
-      : previousBuyPrice
+  const currentBuyPrice = isValidCurrencyDataRetrieved(priceData)
+    ? priceData['Realtime Currency Exchange Rate']['8. Bid Price']
+    : previousBuyPrice
 
-  const currentSellPrice =
-    !_.isNil(priceData['Realtime Currency Exchange Rate']) &&
-    !_.isNil(priceData['Realtime Currency Exchange Rate']['9. Ask Price'])
-      ? priceData['Realtime Currency Exchange Rate']['9. Ask Price']
-      : previousSellPrice
+  const currentSellPrice = isValidCurrencyDataRetrieved(priceData)
+    ? priceData['Realtime Currency Exchange Rate']['9. Ask Price']
+    : previousSellPrice
 
   const buyPriceStatus = getCurrencyPriceStatus(
     previousBuyPrice,
@@ -74,6 +70,41 @@ export const updateCurrencyPrice = (
       status: buyPriceStatus,
     },
     isFetching: false,
+  }
+}
+
+export const updateAllCurrencyPrices = (currenciesData, currencyExchanges) => {
+  return currenciesData.reduce(
+    updateCurrenciesAccumulator(currencyExchanges),
+    currencyExchanges
+  )
+}
+
+const isValidCurrencyDataRetrieved = currencyData => {
+  return !_.isNil(currencyData['Realtime Currency Exchange Rate'])
+}
+
+const updateCurrenciesAccumulator = currencyExchanges => (
+  currenciesAccumulator,
+  currencyData
+) => {
+  if (isValidCurrencyDataRetrieved(currencyData)) {
+    const priceData = currencyData['Realtime Currency Exchange Rate']
+    const currencyPairId = `${priceData['1. From_Currency Code']}${
+      priceData['3. To_Currency Code']
+    }`
+    return {
+      ...currenciesAccumulator,
+      [currencyPairId]: updateCurrencyPrice(
+        currencyData,
+        currencyPairId,
+        currencyExchanges
+      ),
+    }
+  } else {
+    return {
+      ...currenciesAccumulator,
+    }
   }
 }
 

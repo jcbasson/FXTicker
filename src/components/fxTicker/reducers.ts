@@ -3,12 +3,16 @@ import {
   FETCH_CURRENCY_PRICE_SUCCESS,
   FETCH_CURRENCY_PRICE_FAILURE,
 } from './actions'
-import { FETCHING_CURRENCIES } from '../updateCurrenciesButton'
+import {
+  FETCH_CURRENCIES,
+  FETCH_CURRENCIES_SUCCESS,
+} from '../updateCurrenciesButton'
 import {
   updateCurrencyFetchingStatus,
   updateCurrencyPrice,
   updateCurrencyFetchingError,
   updateAllCurrencyFetchingStatus,
+  updateAllCurrencyPrices
 } from './utils'
 import _ from 'lodash'
 
@@ -82,10 +86,16 @@ export const fxTickerReducer = (state = defaultState, action: any) => {
           ),
         },
       }
-    case FETCHING_CURRENCIES:
+    case FETCH_CURRENCIES:
       return {
         byId: updateAllCurrencyFetchingStatus(currencyExchanges, true),
       }
+    case FETCH_CURRENCIES_SUCCESS:
+        const { currenciesData } = action
+      return {
+        byId: updateAllCurrencyPrices(currenciesData, currencyExchanges)
+      }
+
     default:
       return state
   }

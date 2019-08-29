@@ -1,4 +1,4 @@
 import { UpdateCurrenciesButton } from './component'
-import { FETCHING_CURRENCIES } from './actions';
+import { FETCH_CURRENCIES, FETCH_CURRENCIES_SUCCESS } from './actions';
 
-export { UpdateCurrenciesButton, FETCHING_CURRENCIES }
+export { UpdateCurrenciesButton, FETCH_CURRENCIES, FETCH_CURRENCIES_SUCCESS }

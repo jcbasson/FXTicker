@@ -24,13 +24,13 @@ export const FXTickerUI = ({
   isBuyPriceAvailable,
   fetchCurrencyPrice,
 }) => {
-  // useEffect(() => {
-  //   fetchCurrencyPrice(currencyPair)
-  // }, [])
+  useEffect(() => {
+    fetchCurrencyPrice(currencyPair)
+  }, [])
 
-  // useInterval(() => {
-  //   fetchCurrencyPrice(currencyPair)
-  // }, 60000)
+  useInterval(() => {
+    fetchCurrencyPrice(currencyPair)
+  }, 60000)
 
   return (
     <FXTickerContainer>

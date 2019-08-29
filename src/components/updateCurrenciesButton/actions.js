@@ -1,19 +1,29 @@
 import { httpCurrencyService } from '../../services'
 
-export const FETCHING_CURRENCIES = 'FETCHING_CURRENCIES'
+export const FETCH_CURRENCIES = 'FETCH_CURRENCIES'
+export const FETCH_CURRENCIES_SUCCESS = 'FETCH_CURRENCIES_SUCCESS'
 
 export const updateCurrencyPrices = currencyPairs => dispatch => {
-  dispatch(updateCurrencies())
+  dispatch(fetchCurrencies())
 
   return Promise.all([
     ...currencyPairs.map(cp => httpCurrencyService.fetchCurrencyExchange(cp)),
   ]).then((result) => {
-      console.log(result);
+      dispatch(fetchCurrenciesSuccess(result));
+  }, (error) => {
+      //TODO: log this error
   })
 }
 
-export const updateCurrencies = () => {
+export const fetchCurrencies = () => {
   return {
-    type: FETCHING_CURRENCIES,
+    type: FETCH_CURRENCIES,
   }
+}
+
+export const fetchCurrenciesSuccess = (currenciesData) => {
+    return {
+        type: FETCH_CURRENCIES_SUCCESS,
+        currenciesData
+    }
 }
