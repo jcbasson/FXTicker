@@ -1,3 +1,3 @@
-import * as httpCurrencyService from "./httpCurrencyService";
+import * as httpCurrencyService from './httpCurrencyService'
 
-export { httpCurrencyService };
+export { httpCurrencyService }

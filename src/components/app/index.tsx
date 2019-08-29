@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { FXTicker } from "../fxTicker";
+import { UpdateCurrenciesButton } from '../updateCurrenciesButton'
 
 export const App: React.FC = () => {
   return (
@@ -18,7 +19,7 @@ export const App: React.FC = () => {
       </LayoutItem>
       <LayoutDivider />
       <LayoutItem>
-       
+       <UpdateCurrenciesButton />
       </LayoutItem>
     </Layout>
   );

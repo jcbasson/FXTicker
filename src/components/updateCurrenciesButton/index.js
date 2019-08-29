@@ -1,5 +1,4 @@
-import { UpdateCurrenciesButton } from './component';
+import { UpdateCurrenciesButton } from './component'
+import { FETCHING_CURRENCIES } from './actions';
 
-export {
-    UpdateCurrenciesButton
-}
+export { UpdateCurrenciesButton, FETCHING_CURRENCIES }

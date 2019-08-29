@@ -1,6 +1,5 @@
-import _ from "lodash";
+import _ from 'lodash'
 import { createSelector } from 'reselect'
-
 
 export const getCurrencyPairs = () => {
   return createSelector(
@@ -9,14 +8,14 @@ export const getCurrencyPairs = () => {
   )
 }
 
-const getCurrencyExchanges = (state) => {
-    return _.get(state, "currencyExchanges.byId", {});
+const getCurrencyExchanges = state => {
+  return _.get(state, 'currencyExchanges.byId', {})
 }
 
 const getCurrencyPairList = currencyExchanges => {
   return Object.values(currencyExchanges).map(ce => ({
     id: _.get(ce, 'id'),
-    from: _.get(ce, "from"),
-    to: _.get(ce, "to")
-  }));
-};
+    from: _.get(ce, 'from'),
+    to: _.get(ce, 'to'),
+  }))
+}

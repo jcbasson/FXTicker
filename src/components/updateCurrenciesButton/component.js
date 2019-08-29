@@ -1,16 +1,19 @@
-import React, { useEffect } from "react";
-import _ from "lodash";
-import { connect } from "react-redux";
-import { updateCurrencyPrices } from "./actions";
-import { getCurrencyPairs } from "./utils";
+import React from 'react'
+import _ from 'lodash'
+import { connect } from 'react-redux'
+import { getCurrencyPairs } from './utils'
+import { updateCurrencyPrices } from './actions';
+import styled from 'styled-components';
 
 export const UpdateCurrenciesButtonUI = ({ currencyPairs, clickHandler }) => {
   return (
     <>
-      <UpdateButton onClick={clickHandler(currencyPairs)}>Update Prices</UpdateButton>
+      <UpdateButton onClick={clickHandler(currencyPairs)}>
+        Update Prices
+      </UpdateButton>
     </>
-  );
-};
+  )
+}
 
 const UpdateButton = styled.button`
   padding: 0;
@@ -25,24 +28,26 @@ const UpdateButton = styled.button`
   margin-top: 15px;
   outline: none;
   font-family: sans-serif;
-`;
+`
 
 const makeMapStateToProps = () => {
-  const makeGetCurrencyPairs = getCurrencyPairs();
+  const makeGetCurrencyPairs = getCurrencyPairs()
   return state => {
     return {
-      currencyPairs: makeGetCurrencyPairs(state)
-    };
-  };
-};
+      currencyPairs: makeGetCurrencyPairs(state),
+    }
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
-    clickHandler: currencyPairs => dispatch(updateCurrencyPrices(currencyPairs))
-  };
-};
+    clickHandler: currencyPairs => () => {
+       dispatch(updateCurrencyPrices(currencyPairs));
+    }    
+  }
+}
 
 export const UpdateCurrenciesButton = connect(
   makeMapStateToProps,
   mapDispatchToProps
-)(UpdateCurrenciesButtonUI);
+)(UpdateCurrenciesButtonUI)

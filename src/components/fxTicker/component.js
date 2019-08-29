@@ -1,37 +1,36 @@
-import React, {useEffect} from "react";
-import _ from "lodash";
-import { connect } from "react-redux";
-import { loadCurrencyPrice } from "./actions";
-import { useInterval } from "./hooks";
+import React, { useEffect } from 'react'
+import _ from 'lodash'
+import { connect } from 'react-redux'
+import { loadCurrencyPrice } from './actions'
+import { useInterval } from './hooks'
 import {
   FXTickerContainer,
   FXTickerHeader,
   FXTickerBody,
   PriceContainer,
   PriceHeader,
-  Price
-} from "./styled";
+  Price,
+} from './styled'
 import {
   getCurrencyPairById,
   isCurrencySellPriceAvailable,
-  isCurrencyBuyPriceAvailable
-} from "./utils";
+  isCurrencyBuyPriceAvailable,
+} from './utils'
 
 export const FXTickerUI = ({
   id,
   currencyPair,
   isSellPriceAvailable,
   isBuyPriceAvailable,
-  fetchCurrencyPrice
+  fetchCurrencyPrice,
 }) => {
+  // useEffect(() => {
+  //   fetchCurrencyPrice(currencyPair)
+  // }, [])
 
-  useEffect(() => {
-    fetchCurrencyPrice(currencyPair);
-  }, [])
-  
-  useInterval(() => {
-    fetchCurrencyPrice(currencyPair);
-  }, 60000);
+  // useInterval(() => {
+  //   fetchCurrencyPrice(currencyPair)
+  // }, 60000)
 
   return (
     <FXTickerContainer>
@@ -55,26 +54,26 @@ export const FXTickerUI = ({
         </PriceContainer>
       </FXTickerBody>
     </FXTickerContainer>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state, props) => {
-  const currencyPair = getCurrencyPairById(state, props.id);
+  const currencyPair = getCurrencyPairById(state, props.id)
   return {
     currencyPair,
     isSellPriceAvailable: isCurrencySellPriceAvailable(currencyPair),
-    isBuyPriceAvailable: isCurrencyBuyPriceAvailable(currencyPair)
-  };
-};
+    isBuyPriceAvailable: isCurrencyBuyPriceAvailable(currencyPair),
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
     fetchCurrencyPrice: currencyPair =>
-      dispatch(loadCurrencyPrice(currencyPair))
-  };
-};
+      dispatch(loadCurrencyPrice(currencyPair)),
+  }
+}
 
 export const FXTicker = connect(
   mapStateToProps,
   mapDispatchToProps
-)(FXTickerUI);
+)(FXTickerUI)
