@@ -4,6 +4,13 @@
 
 Navigate to root folder
 
+Install packages:
+
+```
+yarn
+```
+
+
 Start application:
 
 ```
