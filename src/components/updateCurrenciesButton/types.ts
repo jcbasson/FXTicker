@@ -38,3 +38,8 @@ export type GetCurrencyPairs = () => (
 export type GetCurrencyExchanges = (state: any) => ICurrency;
 
 export type GetCurrencyPairList = (currencyExchanges: ICurrency) => { id: string; from: string; to: string }[] 
+
+export interface IUpdateCurrenciesButtonUI {
+    currencyPairs: { id: string; from: string; to: string }[],
+    clickHandler: (currencyPairs: { id: string; from: string; to: string }[]) => () => void;
+}

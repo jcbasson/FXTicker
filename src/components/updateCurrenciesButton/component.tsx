@@ -4,8 +4,9 @@ import { connect } from 'react-redux'
 import { getCurrencyPairs } from './utils'
 import { updateCurrencyPrices } from './actions';
 import styled from 'styled-components';
+import { IUpdateCurrenciesButtonUI } from './types';
 
-export const UpdateCurrenciesButtonUI = ({ currencyPairs, clickHandler }) => {
+export const UpdateCurrenciesButtonUI: React.FC<IUpdateCurrenciesButtonUI> = ({ currencyPairs, clickHandler }) => {
   return (
     <>
       <UpdateButton onClick={clickHandler(currencyPairs)}>
@@ -32,16 +33,16 @@ const UpdateButton = styled.button`
 
 const makeMapStateToProps = () => {
   const makeGetCurrencyPairs = getCurrencyPairs()
-  return state => {
+  return (state: any) => {
     return {
       currencyPairs: makeGetCurrencyPairs(state),
     }
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
-    clickHandler: currencyPairs => () => {
+    clickHandler: (currencyPairs: { id: string; from: string; to: string }[]) => () => {
        dispatch(updateCurrencyPrices(currencyPairs));
     }    
   }
