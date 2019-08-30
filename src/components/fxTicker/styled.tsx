@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { PriceStatus } from './types';
 
 export const FXTickerContainer = styled.div`
   display: flex;
@@ -38,14 +39,14 @@ export const PriceHeader = styled.label`
   font-size: 20px;
 `
 
-export const Price = styled.label`
+export const Price = styled.label<{status: PriceStatus}>`
   line-height: 30px;
   text-align: center;
   color: ${({ status }) => {
     switch (status) {
-      case 'increased':
+      case PriceStatus.increased:
         return 'green'
-      case 'decreased':
+      case PriceStatus.decreased:
         return 'red'
       default:
         return 'white'

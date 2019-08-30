@@ -15,6 +15,7 @@ import {
   updateAllCurrencyPrices
 } from './utils'
 import _ from 'lodash'
+import { ICurrencyExchanges, ICurrency } from './types';
 
 const defaultState = {
   byId: {
@@ -50,7 +51,7 @@ const defaultState = {
 
 export const fxTickerReducer = (state = defaultState, action: any) => {
   const { currencyPairId } = action
-  const currencyExchanges = _.get(state, `byId`)
+  const currencyExchanges = _.get(state, `byId`) as ICurrency;
 
   switch (action.type) {
     case FETCH_CURRENCY_PRICE:
@@ -77,11 +78,13 @@ export const fxTickerReducer = (state = defaultState, action: any) => {
         },
       }
     case FETCH_CURRENCY_PRICE_FAILURE:
+      const { error } = action;
       return {
         byId: {
           ...currencyExchanges,
           [currencyPairId]: updateCurrencyFetchingError(
             currencyPairId,
+            error,
             currencyExchanges
           ),
         },

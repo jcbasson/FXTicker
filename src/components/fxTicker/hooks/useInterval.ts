@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react'
+import { UseInterval } from '../types';
 
-export const useInterval = (callback, delay) => {
-  const savedCallback = useRef()
+export const useInterval: UseInterval = (callback, delay) => {
+  const savedCallback = useRef() as any;
 
   useEffect(() => {
     savedCallback.current = callback

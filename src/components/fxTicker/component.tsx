@@ -16,8 +16,9 @@ import {
   isCurrencySellPriceAvailable,
   isCurrencyBuyPriceAvailable,
 } from './utils'
+import { IFXTicker, ICurrencyPair } from './types';
 
-export const FXTickerUI = ({
+export const FXTickerUI: React.FC<IFXTicker> = ({
   id,
   currencyPair,
   isSellPriceAvailable,
@@ -57,7 +58,7 @@ export const FXTickerUI = ({
   )
 }
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (state: any, props: any) => {
   const currencyPair = getCurrencyPairById(state, props.id)
   return {
     currencyPair,
@@ -66,9 +67,9 @@ const mapStateToProps = (state, props) => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
-    fetchCurrencyPrice: currencyPair =>
+    fetchCurrencyPrice: (currencyPair: ICurrencyPair) =>
       dispatch(loadCurrencyPrice(currencyPair)),
   }
 }
